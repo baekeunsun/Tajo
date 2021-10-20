@@ -51,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
     final static int BT_CONNECTING_STATUS = 3;
-    final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");    //아두이노 연결
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //메인 액티비티 최초 생성 시 호출됨
+        // 전역으로 선언한 버튼, 텍스트뷰 등을 findviewById 메서드를 통해 참조시킴
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTvBluetoothStatus = (TextView)findViewById(R.id.tvBluetoothStatus);
@@ -65,28 +67,33 @@ public class MainActivity extends AppCompatActivity {
         mBtnConnect = (Button)findViewById(R.id.btnConnect);
         mBtnSendData = (Button)findViewById(R.id.btnSendData);
 
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();   //해당 장치가 블루투스기능을 지원하는 지 알아오는 메서드
+                                                                    //최초 생성될 때 값 mBlutetoothAdapter에 저장하고 이후 bluetoothOn() 메서드에서 사용됨
 
 
         mBtnBluetoothOn.setOnClickListener(new Button.OnClickListener() {
+            //블루투스 ON버튼 클릭
             @Override
             public void onClick(View view) {
                 bluetoothOn();
             }
         });
         mBtnBluetoothOff.setOnClickListener(new Button.OnClickListener() {
+            //블루투스 OFF버튼 클릭
             @Override
             public void onClick(View view) {
                 bluetoothOff();
             }
         });
         mBtnConnect.setOnClickListener(new Button.OnClickListener() {
+            //블루투스 연결버튼 클릭
             @Override
             public void onClick(View view) {
                 listPairedDevices();
             }
         });
         mBtnSendData.setOnClickListener(new Button.OnClickListener() {
+            //전송 버튼 클릭
             @Override
             public void onClick(View view) {
                 if(mThreadConnectedBluetooth != null) {
@@ -96,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mBluetoothHandler = new Handler(){
+            //블루투스 핸들러로 블루투스 연결 뒤 수신된 데이터를 읽어와 RecevieData텍스트 뷰에 표시해줌
+            //메모리 누수가 있어 노란 줄이 쳐지니 만약 안돌아갈 경우 확인 필요
             public void handleMessage(android.os.Message msg){
                 if(msg.what == BT_MESSAGE_READ){
                     String readMessage = null;
@@ -110,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
     void bluetoothOn() {
+        //ON버튼 누르면 동작하는 메서드
         if(mBluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(), "블루투스를 지원하지 않는 기기입니다.", Toast.LENGTH_LONG).show();
         }
@@ -126,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     void bluetoothOff() {
+        //OFF버튼 누르면 동작하는 메서드
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
             Toast.makeText(getApplicationContext(), "블루투스가 비활성화 되었습니다.", Toast.LENGTH_SHORT).show();
@@ -137,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //ON메서드에서 Intent로 받은 결과를 처리하는 메서드
         switch (requestCode) {
             case BT_REQUEST_ENABLE:
                 if (resultCode == RESULT_OK) { // 블루투스 활성화를 확인을 클릭하였다면
@@ -152,9 +164,11 @@ public class MainActivity extends AppCompatActivity {
     }
     void listPairedDevices() {
         if (mBluetoothAdapter.isEnabled()) {
+            //블루투스 활성화 확인
             mPairedDevices = mBluetoothAdapter.getBondedDevices();
 
             if (mPairedDevices.size() > 0) {
+                //페어링된 장치 존재 시 새로운 알림창 객체 생성하여 장치선택 타이틀과 각 페어링된 장치명 추가
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("장치 선택");
 
@@ -183,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     void connectSelectedDevice(String selectedDeviceName) {
+        //블루투스 연결 메서드
+        //listPairedDevices메서드를 통해 전달받은 값은 장치의 이름이고 실제 연결에 필요한 것은 장치의 주소임
         for(BluetoothDevice tempDevice : mPairedDevices) {
             if (selectedDeviceName.equals(tempDevice.getName())) {
                 mBluetoothDevice = tempDevice;
@@ -198,6 +214,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "블루투스 연결 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
         }
+        //mBluetoothDevice를 통해 createRfcommSocketToServiceRecord(UUID)를 호출하여 mBluetoothSocket을 가지고 옴
+        //UUID는 시리얼 통신용
+        //mBluetoothSocket 초기화, connect()호출 연결
     }
 
     private class ConnectedBluetoothThread extends Thread {
@@ -206,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
         private final OutputStream mmOutStream;
 
         public ConnectedBluetoothThread(BluetoothSocket socket) {
+            //데이터 전송 및 수신하는 길 만드는 작업
             mmSocket = socket;
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
@@ -225,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
             int bytes;
 
             while (true) {
+                //데이터 항상 확인을 위해서 while문
                 try {
                     bytes = mmInStream.available();
                     if (bytes != 0) {
