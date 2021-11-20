@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/login_top"
+        android:layout_width="92dp"
+        android:layout_height="37dp"
+        android:text="LOGIN"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20px"
+        android:background="@color/tajoColor"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="67dp" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
+        android:gravity="bottom|center"
+        android:text="ID"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="103dp" />
+
+    <TextView
+        android:id="@+id/pw"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
+        android:gravity="bottom|center"
+        android:text="PW"
+        android:textSize="16sp"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="159dp" />
+
+    <EditText
+        android:id="@+id/id_box"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:hint="ID를 입력하세요."
+        android:textColor="#A8A4A4"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="103dp" />
+
+    <EditText
+        android:id="@+id/pw_box"
+        android:layout_width="313dp"
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:hint="비밀번호를 입력하세요."
+        android:textColor="#A8A4A4"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="70dp"
+        tools:layout_editor_absoluteY="159dp" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_btn"
+        android:layout_width="358dp"
+        android:layout_height="42dp"
+        android:background="@color/tajoColor"
+        android:backgroundTint="@color/tajoColor"
+        android:text="LOGIN"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="214dp" />
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8D3F8"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="676dp" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
