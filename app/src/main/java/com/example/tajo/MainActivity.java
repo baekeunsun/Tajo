@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         mBtnSendData = (Button)findViewById(R.id.btnSendData);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();   //해당 장치가 블루투스기능을 지원하는 지 알아오는 메서드
-                                                                    //최초 생성될 때 값 mBlutetoothAdapter에 저장하고 이후 bluetoothOn() 메서드에서 사용됨
+        //최초 생성될 때 값 mBlutetoothAdapter에 저장하고 이후 bluetoothOn() 메서드에서 사용됨
 
 
         mBtnBluetoothOn.setOnClickListener(new Button.OnClickListener() {
