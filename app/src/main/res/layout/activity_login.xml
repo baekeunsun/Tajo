@@ -57,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/id"
         app:layout_constraintVertical_bias="0.05"/>
 
+
     <EditText
         android:id="@+id/idBox"
         android:layout_width="313dp"
@@ -68,7 +69,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id"
-        app:layout_constraintTop_toTopOf="@+id/id" />
+        app:layout_constraintTop_toTopOf="@+id/id"
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/pwBox"
@@ -81,7 +83,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/pw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pw"
-        app:layout_constraintTop_toTopOf="@+id/pw" />
+        app:layout_constraintTop_toTopOf="@+id/pw"
+        android:inputType="textPassword"/>
 
 
     <androidx.appcompat.widget.AppCompatButton
