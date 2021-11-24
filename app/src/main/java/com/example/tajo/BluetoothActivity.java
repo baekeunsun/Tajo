@@ -19,6 +19,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,7 +33,6 @@ import java.util.UUID;
 public class BluetoothActivity  extends AppCompatActivity {
 
     Switch mSwBlutooth;
-    TextView mTvBluetoothStatus;
     BluetoothAdapter mBluetoothAdapter;
     Set<BluetoothDevice> mPairedDevices;
     List<String> mListPairedDevices;
@@ -39,6 +40,7 @@ public class BluetoothActivity  extends AppCompatActivity {
     BluetoothDevice mBluetoothDevice;
     BluetoothSocket mBluetoothSocket;
     Handler mBluetoothHandler;
+    TextView connectName;
 
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
@@ -52,6 +54,7 @@ public class BluetoothActivity  extends AppCompatActivity {
         // 전역으로 선언한 버튼, 텍스트뷰 등을 findviewById 메서드를 통해 참조시킴
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+        connectName = (TextView) findViewById(R.id.connectName);
 
         mSwBlutooth = (Switch) findViewById(R.id.bt_switch);
         mSwBlutooth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -59,7 +62,6 @@ public class BluetoothActivity  extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
                     // switchButton이 체크된 경우
-                    bluetoothOn();
                     listPairedDevices();
                 } else {
                     // switchButton이 체크되지 않은 경우
@@ -68,6 +70,20 @@ public class BluetoothActivity  extends AppCompatActivity {
             }
         });
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();   //해당 장치가 블루투스기능을 지원하는 지 알아오는 메서드
+        bluetoothOn();
+
+        mBluetoothHandler = new Handler(){
+            public void handleMessage(android.os.Message msg){
+                if(msg.what == BT_MESSAGE_READ){
+                    String readMessage = null;
+                    try {
+                        readMessage = new String((byte[]) msg.obj, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
 
     }
 
@@ -81,7 +97,7 @@ public class BluetoothActivity  extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "블루투스가 이미 활성화 되어 있습니다.", Toast.LENGTH_LONG).show();
             }
             else {
-                Toast.makeText(getApplicationContext(), "블루투스가 활성화 되어 있지 않습니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "블루투스를 활성화 합니다.", Toast.LENGTH_LONG).show();
                 Intent intentBluetoothEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 startActivityForResult(intentBluetoothEnable, BT_REQUEST_ENABLE);
             }
@@ -154,6 +170,7 @@ public class BluetoothActivity  extends AppCompatActivity {
         for(BluetoothDevice tempDevice : mPairedDevices) {
             if (selectedDeviceName.equals(tempDevice.getName())) {
                 mBluetoothDevice = tempDevice;
+                connectName.setText(tempDevice.getName());
                 break;
             }
         }
@@ -228,4 +245,3 @@ public class BluetoothActivity  extends AppCompatActivity {
         }
     }
 }
-

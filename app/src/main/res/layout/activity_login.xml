@@ -60,12 +60,13 @@
 
     <EditText
         android:id="@+id/idBox"
-        android:layout_width="313dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:hint="ID를 입력하세요."
         android:textColor="#A8A4A4"
         android:textSize="14sp"
+        app:layout_constraintWidth_percent="0.7"
         app:layout_constraintBottom_toBottomOf="@+id/id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id"
@@ -74,12 +75,13 @@
 
     <EditText
         android:id="@+id/pwBox"
-        android:layout_width="313dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
-        android:hint="비밀번호를 입력하세요."
+        android:hint="PW를 입력하세요."
         android:textColor="#A8A4A4"
         android:textSize="14sp"
+        app:layout_constraintWidth_percent="0.7"
         app:layout_constraintBottom_toBottomOf="@+id/pw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/pw"
@@ -89,11 +91,12 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
-        android:layout_width="358dp"
-        android:layout_height="42dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/tajoColor"
         android:backgroundTint="@color/tajoColor"
         android:text="LOGIN"
+        app:layout_constraintWidth_percent="0.8"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
