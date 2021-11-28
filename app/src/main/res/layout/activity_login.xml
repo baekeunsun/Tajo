@@ -9,7 +9,7 @@
         android:id="@+id/login_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="LOGIN"
+        android:text="TAJO"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,14 +40,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginView"
-        app:layout_constraintVertical_bias="0.08"
-        app:layout_constraintHorizontal_bias="0.07"/>
+        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.2"/>
 
     <TextView
         android:id="@+id/pw"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:textAlignment="center"
         android:text="PW"
         android:textSize="16sp"
@@ -55,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@+id/id"
         app:layout_constraintStart_toStartOf="@+id/id"
         app:layout_constraintTop_toBottomOf="@+id/id"
-        app:layout_constraintVertical_bias="0.05"/>
+        app:layout_constraintVertical_bias="0.15"/>
 
 
     <EditText
@@ -66,7 +65,8 @@
         android:hint="ID를 입력하세요."
         android:textColor="#A8A4A4"
         android:textSize="14sp"
-        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintBottom_toBottomOf="@+id/id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/id"
@@ -79,14 +79,15 @@
         android:layout_height="wrap_content"
         android:gravity="left|center_vertical"
         android:hint="PW를 입력하세요."
+        android:inputType="textPassword"
         android:textColor="#A8A4A4"
         android:textSize="14sp"
-        app:layout_constraintWidth_percent="0.7"
         app:layout_constraintBottom_toBottomOf="@+id/pw"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pw"
+        app:layout_constraintEnd_toEndOf="@+id/idBox"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="@+id/idBox"
         app:layout_constraintTop_toTopOf="@+id/pw"
-        android:inputType="textPassword"/>
+        app:layout_constraintWidth_percent="0.5" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -96,7 +97,7 @@
         android:background="@color/tajoColor"
         android:backgroundTint="@color/tajoColor"
         android:text="LOGIN"
-        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintWidth_percent="0.65"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -104,10 +105,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwBox"
-        app:layout_constraintVertical_bias="0.05"/>
+        app:layout_constraintVertical_bias="0.3"/>
 
-
-
+    <ImageView
+        android:id="@+id/LoginIcon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/idBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintTop_toBottomOf="@+id/loginView"
+        app:srcCompat="@drawable/tajoicon"
+        app:layout_constraintVertical_bias="0.6"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
