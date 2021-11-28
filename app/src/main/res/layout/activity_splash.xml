@@ -2,18 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:interpolator="@android:anim/slide_out_right"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/tajoColor">
+    android:layout_height="match_parent">
+
+    <translate xmlns:android="http://schemas.android.com/apk/res/android"
+        android:duration="250"
+        android:fromXDelta="0%"
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:toXDelta="100%"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <ImageView
+        android:id="@+id/tajoRoad"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tajoIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tajoIcon"
+        app:srcCompat="@drawable/road" />
 
     <ImageView
         android:id="@+id/tajoIcon"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:interpolator="@anim/slide_out_right"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
         app:srcCompat="@drawable/tajoicon" />
 
     <TextView
@@ -21,12 +45,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TAJO"
-        android:textColor="@color/white"
+        android:textColor="@color/tajoColor"
         android:textSize="50dp"
         android:textStyle="bold"
-        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tajoIcon" />
+        app:layout_constraintTop_toBottomOf="@+id/tajoRoad"
+        app:layout_constraintVertical_bias="0.1" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
