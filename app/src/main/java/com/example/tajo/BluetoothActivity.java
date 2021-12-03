@@ -6,8 +6,10 @@ import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -18,6 +20,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -30,8 +37,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-public class BluetoothActivity  extends AppCompatActivity {
 
+public class BluetoothActivity  extends AppCompatActivity {
     Switch mSwBlutooth;
     BluetoothAdapter mBluetoothAdapter;
     Set<BluetoothDevice> mPairedDevices;
@@ -41,21 +48,33 @@ public class BluetoothActivity  extends AppCompatActivity {
     BluetoothSocket mBluetoothSocket;
     Handler mBluetoothHandler;
     TextView connectName;
+    TextView Donan;
+    Button examplebutton;
+    Button timerbutton;
+
 
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
     final static int BT_CONNECTING_STATUS = 3;
     final static UUID BT_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");    //아두이노 연결
 
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //메인 액티비티 최초 생성 시 호출됨
         // 전역으로 선언한 버튼, 텍스트뷰 등을 findviewById 메서드를 통해 참조시킴
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
-        connectName = (TextView) findViewById(R.id.connectName);
+        examplebutton = (Button) findViewById(R.id.examplebutton);
+        timerbutton = (Button) findViewById(R.id.timerbutton);
 
+        connectName = (TextView) findViewById(R.id.connectName);
         mSwBlutooth = (Switch) findViewById(R.id.bt_switch);
         mSwBlutooth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -81,9 +100,29 @@ public class BluetoothActivity  extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
+                    Donan.setText(readMessage);
+                    databaseReference.child("DoNanId").push().setValue("2");
                 }
             }
         };
+
+        timerbutton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                // 버튼 누르면 수행 할 명령 -> 향후 블루투스 도난 감지 시 보내주어야함
+
+                databaseReference.child("DonanId").push().setValue(user.getEmail());
+            }
+        });
+
+
+
+        examplebutton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                // 버튼 누르면 수행 할 명령 -> 향후 블루투스 도난 감지 시 보내주어야함
+
+                databaseReference.child("DonanId").push().setValue(user.getEmail());
+            }
+        });
 
     }
 
@@ -218,24 +257,28 @@ public class BluetoothActivity  extends AppCompatActivity {
                 try {
                     bytes = mmInStream.available();
                     if (bytes != 0) {
+                        // 수신 가능
                         SystemClock.sleep(100);
                         bytes = mmInStream.available();
                         bytes = mmInStream.read(buffer, 0, bytes);
                         mBluetoothHandler.obtainMessage(BT_MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+                        if (bytes == 1) {
+                            // 블루투스에 1받음 -> 도난 -> 팝업창
+                            // 타이머시작 ( 도난 시작 )
+                            // 만약 타이머 시간이 1분 넘었으면 도난이라고 생각해서 DB에 emial 보냄
+
+                        }
+                        else if (bytes == 2) {
+                            // 블루투스에 2받음 ->
+                            // 타이머 멈춤
+                        }
                     }
                 } catch (IOException e) {
                     break;
                 }
             }
         }
-        public void write(String str) {
-            byte[] bytes = str.getBytes();
-            try {
-                mmOutStream.write(bytes);
-            } catch (IOException e) {
-                Toast.makeText(getApplicationContext(), "데이터 전송 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
-            }
-        }
+
         public void cancel() {
             try {
                 mmSocket.close();

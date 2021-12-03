@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-    private EditText editId;
+    static EditText editId;
     private EditText editPw;
     private Button loginBtn;
 
