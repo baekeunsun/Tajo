@@ -51,6 +51,7 @@ public class BluetoothActivity  extends AppCompatActivity {
     TextView Donan;
     Button examplebutton;
     Button timerbutton;
+    boolean flag;
 
 
     final static int BT_REQUEST_ENABLE = 1;
@@ -61,13 +62,15 @@ public class BluetoothActivity  extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //메인 액티비티 최초 생성 시 호출됨
         // 전역으로 선언한 버튼, 텍스트뷰 등을 findviewById 메서드를 통해 참조시킴
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        flag = false;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
@@ -100,17 +103,19 @@ public class BluetoothActivity  extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    Donan.setText(readMessage);
-                    databaseReference.child("DoNanId").push().setValue("2");
                 }
             }
         };
 
         timerbutton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                // 버튼 누르면 수행 할 명령 -> 향후 블루투스 도난 감지 시 보내주어야함
+                // timer버튼 누르면 수행 할 명령 : 도난 감지, 타이머 시작
+                if (flag == false) {
+                    flag = true;
+                    CDT.start();
+                    Log.d("MyTag","cdt시작");
+                }
 
-                databaseReference.child("DonanId").push().setValue(user.getEmail());
             }
         });
 
@@ -118,13 +123,26 @@ public class BluetoothActivity  extends AppCompatActivity {
 
         examplebutton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                // 버튼 누르면 수행 할 명령 -> 향후 블루투스 도난 감지 시 보내주어야함
-
-                databaseReference.child("DonanId").push().setValue(user.getEmail());
+                // example 버튼 누르면 수행 할 명령 : 반납, 타이머 종료, flag 원래대로
+                CDT.cancel();
+                flag = false;
             }
         });
 
     }
+
+    CountDownTimer CDT = new CountDownTimer(10 * 1000, 1000) {
+        public void onTick(long millisUntilFinished) {
+            //반복실행할 구문 : 시간 가는 중
+            Log.d("MyTag","cdt시간가는중");
+
+        }
+        public void onFinish() {
+            //마지막에 실행할 구문 : 시간 다 됨
+            Log.d("MyTag","db올리기");
+            databaseReference.child("DonanId").push().setValue(user.getEmail());
+        }
+    };
 
     void bluetoothOn() {
         //ON버튼 누르면 동작하는 메서드
@@ -264,13 +282,16 @@ public class BluetoothActivity  extends AppCompatActivity {
                         mBluetoothHandler.obtainMessage(BT_MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                         if (bytes == 1) {
                             // 블루투스에 1받음 -> 도난 -> 팝업창
-                            // 타이머시작 ( 도난 시작 )
-                            // 만약 타이머 시간이 1분 넘었으면 도난이라고 생각해서 DB에 emial 보냄
-
+                            if (flag == false) {
+                                flag = true;
+                                CDT.start();    // 타이머 시작
+                                Log.d("MyTag","cdt시작");
+                            }
                         }
                         else if (bytes == 2) {
-                            // 블루투스에 2받음 ->
-                            // 타이머 멈춤
+                            // 블루투스에 2받음 -> 타이머 멈춤, flag 원래대로
+                            CDT.cancel();   // 타이머 멈춤
+                            flag = false;
                         }
                     }
                 } catch (IOException e) {
