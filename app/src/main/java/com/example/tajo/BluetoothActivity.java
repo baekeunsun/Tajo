@@ -48,7 +48,6 @@ public class BluetoothActivity  extends AppCompatActivity {
     BluetoothSocket mBluetoothSocket;
     Handler mBluetoothHandler;
     TextView connectName;
-    TextView Donan;
     Button examplebutton;
     Button timerbutton;
     boolean flag;
@@ -114,11 +113,15 @@ public class BluetoothActivity  extends AppCompatActivity {
                     flag = true;
                     CDT.start();
                     Log.d("MyTag","cdt시작");
+
+                    Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
+                    startActivityForResult(intent,1);
+
+
                 }
 
             }
         });
-
 
 
         examplebutton.setOnClickListener(new Button.OnClickListener() {
@@ -131,7 +134,7 @@ public class BluetoothActivity  extends AppCompatActivity {
 
     }
 
-    CountDownTimer CDT = new CountDownTimer(10 * 1000, 1000) {
+    CountDownTimer CDT = new CountDownTimer(10 * 1000, 1000) {  //10초동안 1초마다 실행
         public void onTick(long millisUntilFinished) {
             //반복실행할 구문 : 시간 가는 중
             Log.d("MyTag","cdt시간가는중");
@@ -286,6 +289,11 @@ public class BluetoothActivity  extends AppCompatActivity {
                                 flag = true;
                                 CDT.start();    // 타이머 시작
                                 Log.d("MyTag","cdt시작");
+
+                                Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
+                                intent.putExtra("data","Test popup");
+                                startActivityForResult(intent,1);
+
                             }
                         }
                         else if (bytes == 2) {

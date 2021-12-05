@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tajo">
 
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -16,6 +17,8 @@
         android:theme="@style/Theme.Tajo">
         <activity android:name=".LoginActivity"/>
         <activity android:name=".BluetoothActivity"/>
+        <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog"
+            tools:ignore="Instantiatable" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

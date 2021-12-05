@@ -58,36 +58,27 @@
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintTop_toBottomOf="@+id/bt_switch" />
 
-    <TextView
-        android:id="@+id/Donan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectName" />
 
     <Button
         android:id="@+id/examplebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send"
-        app:layout_constraintHorizontal_bias="0.1"
+        android:text="timerend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.2" />
 
     <Button
         android:id="@+id/timerbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TimerStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/examplebutton"
-        app:layout_constraintStart_toStartOf="@+id/examplebutton"
-        app:layout_constraintTop_toBottomOf="@+id/examplebutton" />
+        app:layout_constraintBottom_toBottomOf="@+id/examplebutton"
+        app:layout_constraintEnd_toStartOf="@+id/examplebutton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/examplebutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
