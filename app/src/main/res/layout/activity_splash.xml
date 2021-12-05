@@ -3,16 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:interpolator="@android:anim/slide_out_right"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <translate xmlns:android="http://schemas.android.com/apk/res/android"
-        android:duration="250"
-        android:fromXDelta="0%"
-        android:interpolator="@android:anim/decelerate_interpolator"
-        android:toXDelta="100%"
-        tools:ignore="MissingConstraints" />
 
 
 
@@ -31,7 +24,6 @@
         android:id="@+id/tajoIcon"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:interpolator="@anim/slide_out_right"
         app:layout_constraintHeight_percent="0.3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
