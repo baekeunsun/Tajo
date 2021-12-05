@@ -27,77 +27,48 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_top"
-        app:layout_constraintVertical_bias="0" />
-
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="ID"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginView"
-        app:layout_constraintVertical_bias="0.6"
-        app:layout_constraintHorizontal_bias="0.2"/>
-
-    <TextView
-        android:id="@+id/pw"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="PW"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/id"
-        app:layout_constraintStart_toStartOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/id"
-        app:layout_constraintVertical_bias="0.15"/>
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <EditText
         android:id="@+id/idBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="56dp"
         android:gravity="left|center_vertical"
-        android:hint="ID를 입력하세요."
+        android:hint="  아이디"
+        android:inputType="textEmailAddress"
         android:textColor="#A8A4A4"
         android:textSize="14sp"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintBottom_toBottomOf="@+id/id"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/id"
-        app:layout_constraintTop_toTopOf="@+id/id"
-        android:inputType="textEmailAddress"/>
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.8"
+        tools:layout_editor_absoluteY="346dp" />
 
     <EditText
         android:id="@+id/pwBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="270dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="56dp"
         android:gravity="left|center_vertical"
-        android:hint="PW를 입력하세요."
+        android:hint="  비밀번호"
         android:inputType="textPassword"
         android:textColor="#A8A4A4"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pw"
         app:layout_constraintEnd_toEndOf="@+id/idBox"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/idBox"
-        app:layout_constraintTop_toTopOf="@+id/pw"
-        app:layout_constraintWidth_percent="0.5" />
-
+        app:layout_constraintWidth_percent="0.8"
+        tools:layout_editor_absoluteY="417dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="49dp"
         android:background="@color/tajoColor"
         android:backgroundTint="@color/tajoColor"
         android:text="LOGIN"
-        app:layout_constraintWidth_percent="0.65"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -105,7 +76,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pwBox"
-        app:layout_constraintVertical_bias="0.3"/>
+        app:layout_constraintVertical_bias="0.115"
+        app:layout_constraintWidth_percent="0.65" />
 
     <ImageView
         android:id="@+id/LoginIcon"
@@ -113,11 +85,47 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/idBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginView"
-        app:srcCompat="@drawable/tajoicon"
-        app:layout_constraintVertical_bias="0.6"/>
+        app:layout_constraintVertical_bias="0.672"
+        app:srcCompat="@drawable/tajoicon" />
+
+    <ImageView
+        android:id="@+id/SNSlogin"
+        android:layout_width="285dp"
+        android:layout_height="50dp"
+        app:srcCompat="@drawable/image_removebg_preview"
+        tools:layout_editor_absoluteX="63dp"
+        tools:layout_editor_absoluteY="605dp"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintWidth_percent="0.8"
+        />
+
+    <ImageView
+        android:id="@+id/idicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/idicon"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="354dp" />
+
+    <ImageView
+        android:id="@+id/pwicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/pwicon"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="428dp" />
+
+    <TextView
+        android:id="@+id/joinetc"
+        android:layout_width="225dp"
+        android:layout_height="17dp"
+        android:text="아이디 찾기 | 비밀번호 찾기 | 회원가입"
+        tools:layout_editor_absoluteX="93dp"
+        tools:layout_editor_absoluteY="561dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
