@@ -5,6 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
     <TextView
         android:id="@+id/bluetooth_top"
         android:layout_width="wrap_content"
@@ -19,6 +33,19 @@
         app:layout_constraintVertical_bias="0.01" />
 
 
+    <TextView
+        android:id="@+id/greetMent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="안녕하세요"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/blutoothView"
+        app:layout_constraintVertical_bias="0.6"/>
+
+
     <Switch
         android:id="@+id/bt_switch"
         android:layout_width="0dp"
@@ -29,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blutoothView"
-        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintWidth_percent="0.6"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -46,17 +73,32 @@
         app:layout_constraintVertical_bias="0" />
 
     <TextView
+        android:id="@+id/whatConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="연결된 장치는 : "
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.7"/>
+
+
+    <TextView
         android:id="@+id/connectName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textStyle="bold"
         android:textColor="@color/red"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toBottomOf="@+id/bt_switch" />
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.3"/>
 
     <TextView
         android:id="@+id/practiceTV"
@@ -64,12 +106,12 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textStyle="bold"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintTop_toBottomOf="@+id/bt_switch" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.4" />
 
 
     <Button
@@ -79,19 +121,19 @@
         android:text="timerend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintStart_toStartOf="@+id/guideline1"
+        app:layout_constraintTop_toBottomOf="@+id/blutoothView"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/timerbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TimerStart"
-        app:layout_constraintBottom_toBottomOf="@+id/examplebutton"
-        app:layout_constraintEnd_toStartOf="@+id/examplebutton"
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/examplebutton" />
+        app:layout_constraintTop_toBottomOf="@+id/blutoothView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

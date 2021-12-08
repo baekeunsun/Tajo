@@ -49,6 +49,7 @@ public class BluetoothActivity  extends AppCompatActivity {
     Handler mBluetoothHandler;
     TextView connectName;
     TextView practiceTV;
+    TextView greetMent;
     Button examplebutton;
     Button timerbutton;
     static boolean flag;
@@ -76,6 +77,10 @@ public class BluetoothActivity  extends AppCompatActivity {
         examplebutton = (Button) findViewById(R.id.examplebutton);
         timerbutton = (Button) findViewById(R.id.timerbutton);
 
+        greetMent = (TextView) findViewById(R.id.greetMent);
+        String userEmail = user.getEmail();
+        String id = userEmail.substring(0, userEmail.indexOf("@"));
+        greetMent.setText("안녕하세요"+id+"님\nTAJO입니다.");
         connectName = (TextView) findViewById(R.id.connectName);
         practiceTV= (TextView) findViewById(R.id.practiceTV);
         mSwBlutooth = (Switch) findViewById(R.id.bt_switch);
@@ -106,8 +111,8 @@ public class BluetoothActivity  extends AppCompatActivity {
                     practiceTV.setText(readMessage);
                     String donanFlag = practiceTV.getText().toString();
                     String donanFlagg = (donanFlag.substring(0,1));
-                    Log.d("MyTag","아여기까지했다고...");
-                    Log.d("MyTag",donanFlagg);
+                    //Log.d("MyTag","아여기까지했다고...");
+                    //Log.d("MyTag",donanFlagg);
 
                     if (donanFlagg.equals("1")) {
                         Log.d("MyTag","1받아옴..");
@@ -115,7 +120,7 @@ public class BluetoothActivity  extends AppCompatActivity {
                         if (flag == false) {
                             flag = true;
                             CDT.start();    // 타이머 시작
-                            Log.d("MyTag","찐으로cdt시작");
+                            //Log.d("MyTag","찐으로cdt시작");
 
                             Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
                             intent.putExtra("data","Test popup");
@@ -125,13 +130,13 @@ public class BluetoothActivity  extends AppCompatActivity {
                     }
                     else if (donanFlagg.equals("2")) {
                         // 블루투스에 2받음 -> 타이머 멈춤, flag 원래대로
-                        Log.d("MyTag","찐으로cdt멈춤");
+                        //Log.d("MyTag","찐으로cdt멈춤");
                         CDT.cancel();   // 타이머 멈춤
                         flag = false;
                     }
                     else{
                         Log.d("MyTag","엿먹어라");
-                        Log.d("MyTag",donanFlagg);
+                        //Log.d("MyTag",donanFlagg);
                     }
                 }
             }
@@ -261,6 +266,7 @@ public class BluetoothActivity  extends AppCompatActivity {
             if (selectedDeviceName.equals(tempDevice.getName())) {
                 mBluetoothDevice = tempDevice;
                 connectName.setText(tempDevice.getName());
+                Log.d("MyTag","connectName해짜나");
                 break;
             }
         }
@@ -269,6 +275,11 @@ public class BluetoothActivity  extends AppCompatActivity {
             mBluetoothSocket.connect();
             mThreadConnectedBluetooth = new ConnectedBluetoothThread(mBluetoothSocket);
             mThreadConnectedBluetooth.start();
+            if(mThreadConnectedBluetooth != null) {
+                Log.d("MyTag","요기");
+                mThreadConnectedBluetooth.write("2");
+                Log.d("MyTag","짜잔");
+            }
             mBluetoothHandler.obtainMessage(BT_CONNECTING_STATUS, 1, -1).sendToTarget();
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "블루투스 연결 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
@@ -319,6 +330,15 @@ public class BluetoothActivity  extends AppCompatActivity {
                 } catch (IOException e) {
                     break;
                 }
+            }
+        }
+        public void write(String str) {
+            byte[] bytes = str.getBytes();
+            try {
+                mmOutStream.write(bytes);
+                Log.d("MyTag","write갔다진짜");
+            } catch (IOException e) {
+                Toast.makeText(getApplicationContext(), "데이터 전송 중 오류가 발생했습니다.", Toast.LENGTH_LONG).show();
             }
         }
 

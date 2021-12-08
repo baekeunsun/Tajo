@@ -37,7 +37,7 @@
         android:hint="  아이디"
         android:inputType="textEmailAddress"
         android:textColor="#A8A4A4"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintHorizontal_bias="0.6"
@@ -54,7 +54,7 @@
         android:hint="  비밀번호"
         android:inputType="textPassword"
         android:textColor="#A8A4A4"
-        android:textSize="14sp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/idBox"
         app:layout_constraintHeight_percent="0.07"
@@ -72,7 +72,7 @@
         android:backgroundTint="@color/tajoColor"
         android:text="LOGIN"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,14 +97,13 @@
 
     <ImageView
         android:id="@+id/SNSlogin"
-        android:layout_width="285dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/joinetc"
-        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintWidth_percent="0.55"
         app:srcCompat="@drawable/image_removebg_preview" />
 
     <ImageView
@@ -133,6 +132,7 @@
         android:id="@+id/joinetc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="10sp"
         android:text="아이디 찾기 | 비밀번호 찾기 | 회원가입"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/loginBtn"
