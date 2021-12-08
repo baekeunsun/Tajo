@@ -48,10 +48,10 @@ public class BluetoothActivity  extends AppCompatActivity {
     BluetoothSocket mBluetoothSocket;
     Handler mBluetoothHandler;
     TextView connectName;
+    TextView practiceTV;
     Button examplebutton;
     Button timerbutton;
-    boolean flag;
-
+    static boolean flag;
 
     final static int BT_REQUEST_ENABLE = 1;
     final static int BT_MESSAGE_READ = 2;
@@ -77,6 +77,7 @@ public class BluetoothActivity  extends AppCompatActivity {
         timerbutton = (Button) findViewById(R.id.timerbutton);
 
         connectName = (TextView) findViewById(R.id.connectName);
+        practiceTV= (TextView) findViewById(R.id.practiceTV);
         mSwBlutooth = (Switch) findViewById(R.id.bt_switch);
         mSwBlutooth.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -102,6 +103,36 @@ public class BluetoothActivity  extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
+                    practiceTV.setText(readMessage);
+                    String donanFlag = practiceTV.getText().toString();
+                    String donanFlagg = (donanFlag.substring(0,1));
+                    Log.d("MyTag","아여기까지했다고...");
+                    Log.d("MyTag",donanFlagg);
+
+                    if (donanFlagg.equals("1")) {
+                        Log.d("MyTag","1받아옴..");
+                        // 블루투스에 1받음 -> 도난 -> 팝업창
+                        if (flag == false) {
+                            flag = true;
+                            CDT.start();    // 타이머 시작
+                            Log.d("MyTag","찐으로cdt시작");
+
+                            Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
+                            intent.putExtra("data","Test popup");
+                            startActivityForResult(intent,1);
+
+                        }
+                    }
+                    else if (donanFlagg.equals("2")) {
+                        // 블루투스에 2받음 -> 타이머 멈춤, flag 원래대로
+                        Log.d("MyTag","찐으로cdt멈춤");
+                        CDT.cancel();   // 타이머 멈춤
+                        flag = false;
+                    }
+                    else{
+                        Log.d("MyTag","엿먹어라");
+                        Log.d("MyTag",donanFlagg);
+                    }
                 }
             }
         };
@@ -112,14 +143,11 @@ public class BluetoothActivity  extends AppCompatActivity {
                 if (flag == false) {
                     flag = true;
                     CDT.start();
-                    Log.d("MyTag","cdt시작");
+                    Log.d("MyTag","button으로cdt시작");
 
                     Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
                     startActivityForResult(intent,1);
-
-
                 }
-
             }
         });
 
@@ -127,6 +155,7 @@ public class BluetoothActivity  extends AppCompatActivity {
         examplebutton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 // example 버튼 누르면 수행 할 명령 : 반납, 타이머 종료, flag 원래대로
+                Log.d("MyTag","button으로cdt종료");
                 CDT.cancel();
                 flag = false;
             }
@@ -168,6 +197,7 @@ public class BluetoothActivity  extends AppCompatActivity {
         if (mBluetoothAdapter.isEnabled()) {
             mBluetoothAdapter.disable();
             Toast.makeText(getApplicationContext(), "블루투스가 비활성화 되었습니다.", Toast.LENGTH_SHORT).show();
+            connectName.setText(" ");
         }
         else {
             Toast.makeText(getApplicationContext(), "블루투스가 이미 비활성화 되어 있습니다.", Toast.LENGTH_SHORT).show();
@@ -283,24 +313,8 @@ public class BluetoothActivity  extends AppCompatActivity {
                         bytes = mmInStream.available();
                         bytes = mmInStream.read(buffer, 0, bytes);
                         mBluetoothHandler.obtainMessage(BT_MESSAGE_READ, bytes, -1, buffer).sendToTarget();
-                        if (bytes == 1) {
-                            // 블루투스에 1받음 -> 도난 -> 팝업창
-                            if (flag == false) {
-                                flag = true;
-                                CDT.start();    // 타이머 시작
-                                Log.d("MyTag","cdt시작");
 
-                                Intent intent = new Intent(BluetoothActivity.this, PopupActivity.class);
-                                intent.putExtra("data","Test popup");
-                                startActivityForResult(intent,1);
-
-                            }
-                        }
-                        else if (bytes == 2) {
-                            // 블루투스에 2받음 -> 타이머 멈춤, flag 원래대로
-                            CDT.cancel();   // 타이머 멈춤
-                            flag = false;
-                        }
+                        //원래 여기있던게 handler로 옮김
                     }
                 } catch (IOException e) {
                     break;

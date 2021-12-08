@@ -24,13 +24,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Connect"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blutoothView"
         app:layout_constraintVertical_bias="0.4"
-        app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintWidth_percent="0.6"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <View
@@ -58,6 +58,19 @@
         app:layout_constraintVertical_bias="0.1"
         app:layout_constraintTop_toBottomOf="@+id/bt_switch" />
 
+    <TextView
+        android:id="@+id/practiceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@+id/bt_switch" />
+
 
     <Button
         android:id="@+id/examplebutton"
@@ -66,7 +79,7 @@
         android:text="timerend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.2" />
