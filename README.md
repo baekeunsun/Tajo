@@ -42,6 +42,3 @@ Firebase
 
 ### 어플
 ![image](https://user-images.githubusercontent.com/72916415/202370321-19478d44-597f-4f40-a1c5-eacb05bdba48.png)
-
-### 착용 모습
-![image](https://user-images.githubusercontent.com/72916415/202370119-539fd537-1948-43b7-bb96-06f235bb3e0e.png)
